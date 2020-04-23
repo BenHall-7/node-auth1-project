@@ -1,7 +1,8 @@
 const express = require("express");
+const checkCredentialsExist = require("../middleware/checkCredentialsExist");
 const server = express();
 
-server.get("/", (req, res) => {
+server.get("/", checkCredentialsExist, (req, res) => {
 
 });
 
