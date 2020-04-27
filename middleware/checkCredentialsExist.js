@@ -1,13 +1,13 @@
-const bcrypt = require(bcrypt);
+const bcrypt = require("bcrypt");
 const status = require("http-status-codes");
 
 function checkCredentialsExist(req, res, next) {
-    if (typeof req.body != "object") {
-        if (typeof req.body.username == "string"
-            && typeof req.body.password == "string") {
+    if (typeof req.body === "object") {
+        if (typeof req.body.username === "string"
+            && typeof req.body.password === "string") {
             req.credentials = {
                 username: req.body.username,
-                password: bcrypt.hashSync(req.body.password, 10)
+                password: req.body.password,
             };
             next()
         } else {
@@ -18,6 +18,4 @@ function checkCredentialsExist(req, res, next) {
     }
 }
 
-module.exports = {
-    checkCredentialsExist,
-}
+module.exports = checkCredentialsExist;
