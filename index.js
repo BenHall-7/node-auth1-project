@@ -6,6 +6,7 @@ const db = require("./data/dbConfig");
 
 const users = require("./users");
 const checkCredentialsExist = require("./middleware/checkCredentialsExist");
+const checkSession = require("./middleware/checkSession");
 
 const server = express();
 server.use(express.json());
@@ -23,7 +24,7 @@ server.use(
     })
 );
 
-server.use("/api/users", users);
+server.use("/api/users", checkSession, users);
 
 server.post("/api/register", checkCredentialsExist, (req, res) => {
     db("users").insert({
